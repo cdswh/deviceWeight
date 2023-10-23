@@ -100,7 +100,7 @@ def calculate_labels_and_weight(device, qty, shipping_type):
     return ' and '.join(labels)
 
 def main():
-    st.title("Device Weight Calculator")
+    st.title("RMA Weight Calculator")
     
     shipping_type = st.selectbox("Select Shipping Type:", ['New Car', 'BHPH'])
     
