@@ -110,7 +110,7 @@ def main():
         device_options = ['EVO - device only', 'REVO', 'Harness Only', 'EVO with harness']
     device = st.selectbox("Select Item(s) Type:", device_options)
     
-    qty = st.text_input("Enter the quantity of items being returned:", value="1")
+    qty = st.text_input("Enter the quantity of item(s) being returned:", value="1")
     
     if not qty.isdigit():
         st.warning("Please enter a valid quantity.")
