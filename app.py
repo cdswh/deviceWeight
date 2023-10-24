@@ -15,7 +15,7 @@ custom_css = """
                 align-items: center;
                 height: 100vh;
                 overflow: hidden;
-                background-image: url('https://i.postimg.cc/yx4101yJ/backgroundhd.png');
+                background-image: url('https://i.postimg.cc/jqvTs0yP/CDS.png');
                 background-repeat: no-repeat;
                 background-size: cover;
                 background-position: center;
