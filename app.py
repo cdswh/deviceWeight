@@ -23,7 +23,7 @@ custom_css = """
             .stApp {
                 width: 750px;
                 height: 850px;
-                background-color: rgba(255, 255, 255, 0.8);
+                background-color: rgba(255, 255, 255, 0.85);
                 border: 8px solid #2470a0; 
                 border-radius: 20px;
                 padding: 10px; 
