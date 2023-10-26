@@ -91,13 +91,18 @@ def calculate_labels_and_weight(device, qty, shipping_type):
         remaining_10 = remaining_20 % 10
 
         if boxes_20:
-            labels.append(f"({boxes_20}) Labels @ 10 lbs/each")
+            labels.append(f"({boxes_20}) Labels @ {(boxes_20 * 20 * weight_per_device):.2f} lbs")
         if boxes_10:
-            labels.append(f"({boxes_10}) Labels @ 5 lbs/each")
+            labels.append(f"({boxes_10}) Labels @ {(boxes_10 * 10 * weight_per_device):.2f} lbs")
         if remaining_10:
             labels.append(f"(1) Label @ {(remaining_10 * weight_per_device):.2f} lbs")
 
     return ' and '.join(labels)
+
+# Test with a quantity of 125
+result = calculate_labels_and_weight("YourDevice", 125, "New Car")
+print(result)
+
 
 def main():
     st.title("RMA Weight Calculator")
