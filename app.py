@@ -58,26 +58,12 @@ st.markdown(custom_css, unsafe_allow_html=True)
 
 imageLOGO = Image.open(urlopen("https://i.ibb.co/WGjVK32/logopng.png"))
 st.image(imageLOGO)
-def calculate_weight(device):
-    weights = {
-        'Arrow - device only': 0.1,
-        'Dagger Slim / Dagger Large': 0.5,
-        'Harness Only': 0.3,
-        'Arrow with harness': 0.5,
-        'EVO - device only': 0.1,
-        'REVO': 0.5,
-        'EVO with harness': 0.5,
-    }
-    
-    return weights[device]
 
 def calculate_labels_and_weight(device, qty, shipping_type):
     weights = {
-        'Arrow - device only': 0.1,
         'Dagger Slim / Dagger Large': 0.5,
         'Harness Only': 0.3,
         'Arrow with harness': 0.5,
-        'EVO - device only': 0.1,
         'REVO': 0.5,
         'EVO with harness': 0.5,
     }
@@ -114,10 +100,7 @@ def main():
     
     shipping_type = st.selectbox("Please select:", ['New Car', 'BHPH'])
     
-    if shipping_type == "New Car":
-        device_options = ['Arrow - device only', 'Dagger Slim / Dagger Large', 'Harness Only', 'Arrow with harness']
-    else:
-        device_options = ['EVO - device only', 'REVO', 'Harness Only', 'EVO with harness']
+    device_options = ['Dagger Slim / Dagger Large', 'Harness Only', 'Arrow with harness', 'REVO', 'EVO with harness']
     device = st.selectbox("Select Item(s) Type:", device_options)
     
     qty = st.text_input("Enter the quantity of item(s) being returned:", value="1")
