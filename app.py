@@ -76,13 +76,22 @@ def calculate_labels_and_weight(device, qty, shipping_type):
     labels = []
     
     if shipping_type == "New Car":
-        total_boxes = qty // 50
-        remaining = qty % 50
-        
-        if total_boxes:
-            labels.append(f"({total_boxes}) Labels @ 25 lbs/each")
-        if remaining:
-            labels.append(f"({remaining}) Label @ {(remaining * weight_per_device):.2f} lbs")
+        if qty >= 50 and (device == 'Arrow - device only' or device == 'EVO - device only'):
+            total_boxes = qty // 100
+            remaining = qty % 100
+            
+            if total_boxes:
+                labels.append(f"({total_boxes}) Labels @ 10 lbs/each")
+            if remaining:
+                labels.append(f"({remaining}) Label @ {(remaining * weight_per_device):.2f} lbs")
+        else:
+            total_boxes = qty // 50
+            remaining = qty % 50
+            
+            if total_boxes:
+                labels.append(f"({total_boxes}) Labels @ 25 lbs/each")
+            if remaining:
+                labels.append(f"({remaining}) Label @ {(remaining * weight_per_device):.2f} lbs")
     
     elif shipping_type == "BHPH":
         if device in ['EVO - device only', 'Harness Only']:
