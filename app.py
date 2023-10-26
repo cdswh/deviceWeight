@@ -76,14 +76,19 @@ def calculate_labels_and_weight(device, qty, shipping_type):
     labels = []
     
     if shipping_type == "New Car":
-        total_boxes = qty // 50
-        remaining = qty % 50
+        boxes_50 = qty // 100
+        remaining = qty % 100
         
-        if total_boxes:
-            labels.append(f"({total_boxes}) Labels @ 25 lbs/each")
+        if boxes_50:
+            labels.append(f"({boxes_50}) Labels @ 25 lbs/each")
         if remaining:
-            labels.append(f"(1) Label @ {(remaining * weight_per_device):.2f} lbs")
-    
+            boxes_25 = remaining // 50 
+            remaining_25 = remaining % 50
+            if boxes_25:
+                labels.append(f"({boxes_25}) Labels @ 12.5 lbs/each")
+            if remaining_25:
+                labels.append(f"(1) Label @ {remaining_25 * weight_per_device:.2f} lbs")
+
     elif shipping_type == "BHPH":
         boxes_20 = qty // 20
         remaining_20 = qty % 20
@@ -91,12 +96,12 @@ def calculate_labels_and_weight(device, qty, shipping_type):
         remaining_10 = remaining_20 % 10
         
         if boxes_20:
-            labels.append(f"({boxes_20}) Labels @ 10 lbs/each")
+            labels.append(f"({boxes_20}) Labels @ 10 lbs/each") 
         if boxes_10:
             labels.append(f"({boxes_10}) Labels @ 5 lbs/each")
         if remaining_10:
-            labels.append(f"(1) Label @ {(remaining_10 * weight_per_device):.2f} lbs")
-        
+            labels.append(f"(1) Label @ {remaining_10 * weight_per_device:.2f} lbs")
+
     return ' and '.join(labels)
 
 def main():
