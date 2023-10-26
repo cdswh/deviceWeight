@@ -72,7 +72,17 @@ def calculate_weight(device):
     return weights[device]
 
 def calculate_labels_and_weight(device, qty, shipping_type):
-    weight_per_device = calculate_weight(device)
+    weights = {
+        'Arrow - device only': 0.1,
+        'Dagger Slim / Dagger Large': 0.5,
+        'Harness Only': 0.3,
+        'Arrow with harness': 0.5,
+        'EVO - device only': 0.1,
+        'REVO': 0.5,
+        'EVO with harness': 0.5,
+    }
+    
+    weight_per_device = weights.get(device, 0)  # Get the weight for the specified device
     labels = []
 
     if shipping_type == "New Car":
@@ -98,11 +108,6 @@ def calculate_labels_and_weight(device, qty, shipping_type):
             labels.append(f"(1) Label @ {(remaining_10 * weight_per_device):.2f} lbs")
 
     return ' and '.join(labels)
-
-# Test with a quantity of 125
-result = calculate_labels_and_weight("YourDevice", 125, "New Car")
-print(result)
-
 
 def main():
     st.title("RMA Weight Calculator")
