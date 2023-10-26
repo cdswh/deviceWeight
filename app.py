@@ -125,7 +125,7 @@ def calculate_labels_and_weight(device, qty, shipping_type):
                     f"(1) Label @ {(box_size_20 + remaining_10) * weight_per_device:.2f} lbs"
                 )
                 remaining_10 = (
-                    0  # Reset to zero as the remaining items have been combined
+                    0
                 )
             else:
                 labels.append(
