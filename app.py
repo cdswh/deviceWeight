@@ -112,6 +112,6 @@ def main():
     labels = calculate_labels_and_weight(device, int(qty), shipping_type)
     
     st.markdown(f'<div class="output"> {labels}</div>', unsafe_allow_html=True)
-
+            
 if __name__ == '__main__':
     main()
