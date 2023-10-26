@@ -101,35 +101,33 @@ def calculate_labels_and_weight(device, qty, shipping_type):
             labels.append(f"(1) Label @ {(remaining * weight_per_device):.2f} lbs")
 
     elif shipping_type == "BHPH":
-        if device == 'EVO - device only':
-            boxes_20 = qty // 40
-            remaining_20 = qty % 40
-            boxes_10 = remaining_20 // 20
-            remaining_10 = remaining_20 % 20
-        else:
-            boxes_20 = qty // 20
-            remaining_20 = qty % 20
-            boxes_10 = remaining_20 // 10
-            remaining_10 = remaining_20 % 10
+        box_size_20 = 40 if device == 'EVO - device only' else 20
+        box_size_10 = 20 if device == 'EVO - device only' else 10
 
-        single_box_weight_20 = 20 * weight_per_device if device != 'EVO - device only' else 40 * weight_per_device
-        single_box_weight_10 = 10 * weight_per_device if device != 'EVO - device only' else 20 * weight_per_device
+        boxes_20 = qty // box_size_20
+        remaining_20 = qty % box_size_20
+        boxes_10 = remaining_20 // box_size_10
+        remaining_10 = remaining_20 % box_size_10
+
+        single_box_weight_20 = box_size_20 * weight_per_device
+        single_box_weight_10 = box_size_10 * weight_per_device
 
         if boxes_20:
-            if boxes_20 == 1:
-                labels.append(f"(1) Label @ {single_box_weight_20:.2f} lbs")
+            if boxes_20 == 1 and (remaining_10 + box_size_10) <= box_size_20:
+                labels.append(f"(1) Label @ {(box_size_20 + remaining_10) * weight_per_device:.2f} lbs")
+                remaining_10 = 0  # Reset to zero as the remaining items have been combined
             else:
                 labels.append(f"({boxes_20}) Labels @ {single_box_weight_20:.2f} lbs EACH")
 
-        if boxes_10:
-            if boxes_10 == 1:
-                labels.append(f"(1) Label @ {single_box_weight_10:.2f} lbs")
+        if boxes_10 or remaining_10:
+            if boxes_10 == 1 and remaining_10:
+                labels.append(f"(1) Label @ {(box_size_10 + remaining_10) * weight_per_device:.2f} lbs")
             else:
-                labels.append(f"({boxes_10}) Labels @ {single_box_weight_10:.2f} lbs EACH")
+                if boxes_10:
+                    labels.append(f"({boxes_10}) Labels @ {single_box_weight_10:.2f} lbs EACH")
+                if remaining_10:
+                    labels.append(f"(1) Label @ {(remaining_10 * weight_per_device):.2f} lbs")
 
-        if remaining_10:
-            labels.append(f"(1) Label @ {(remaining_10 * weight_per_device):.2f} lbs")
-    
     return ' and '.join(labels)
 
 def main():
