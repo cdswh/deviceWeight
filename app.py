@@ -115,9 +115,9 @@ def main():
     shipping_type = st.selectbox("Please select:", ['New Car', 'BHPH'])
     
     if shipping_type == "New Car":
-        device_options = ['Dagger Slim / Dagger Large', 'Harness Only', 'Arrow with harness']
+        device_options = ['Arrow with harness', 'Dagger Slim / Dagger Large', 'Harness Only']
     else:
-        device_options = ['REVO', 'Harness Only', 'EVO with harness']
+        device_options = ['EVO with harness', 'REVO', 'Harness Only']
     device = st.selectbox("Select Item(s) Type:", device_options)
     
     qty = st.text_input("Enter the quantity of item(s) being returned:", value="1")
