@@ -62,11 +62,11 @@ def calculate_weight(device):
     weights = {
         'Arrow - device only': 0.1,
         'Dagger Slim / Dagger Large': 0.5,
-        'Harness Only': 0.15,  # Updated weight for Harness Only
+        'Harness Only': 0.3,
         'Arrow with harness': 0.5,
-        'EVO - device only': 0.05,  # Updated weight for EVO - device only
+        'EVO - device only': 0.1,
         'REVO': 0.5,
-        'EVO with harness': 0.15,  # Updated weight for EVO with harness
+        'EVO with harness': 0.5,
     }
     
     return weights[device]
@@ -82,33 +82,20 @@ def calculate_labels_and_weight(device, qty, shipping_type):
         if total_boxes:
             labels.append(f"({total_boxes}) Labels @ 25 lbs/each")
         if remaining:
-            labels.append(f"({remaining}) Label @ {(remaining * weight_per_device):.2f} lbs")
+            labels.append(f"(1) Label @ {(remaining * weight_per_device):.2f} lbs")
     
     elif shipping_type == "BHPH":
-        if device in ['EVO - device only', 'Harness Only']:
-            boxes_100 = qty // 100
-            remaining_100 = qty % 100
-            boxes_10 = remaining_100 // 10
-            remaining_10 = remaining_100 % 10
+        boxes_20 = qty // 20
+        remaining_20 = qty % 20
+        boxes_10 = remaining_20 // 10
+        remaining_10 = remaining_20 % 10
         
-            if boxes_100:
-                labels.append(f"({boxes_100}) Labels @ 10 lbs/each")
-            if boxes_10:
-                labels.append(f"({boxes_10}) Labels @ 5 lbs/each")
-            if remaining_10:
-                labels.append(f"({remaining_10}) Label @ {(remaining_10 * weight_per_device):.2f} lbs")
-        else:
-            boxes_20 = qty // 20
-            remaining_20 = qty % 20
-            boxes_10 = remaining_20 // 10
-            remaining_10 = remaining_20 % 10
-        
-            if boxes_20:
-                labels.append(f"({boxes_20}) Labels @ 10 lbs/each")
-            if boxes_10:
-                labels.append(f"({boxes_10}) Labels @ 5 lbs/each")
-            if remaining_10:
-                labels.append(f"({remaining_10}) Label @ {(remaining_10 * weight_per_device):.2f} lbs")
+        if boxes_20:
+            labels.append(f"({boxes_20}) Labels @ 10 lbs/each")
+        if boxes_10:
+            labels.append(f"({boxes_10}) Labels @ 5 lbs/each")
+        if remaining_10:
+            labels.append(f"(1) Label @ {(remaining_10 * weight_per_device):.2f} lbs")
         
     return ' and '.join(labels)
 
@@ -135,3 +122,21 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+for new car side:
+
+if i want to print labels for 75 Arrow - device only it should be 1 label @ 5 lbs and another at 2.5 
+
+But the tool is printing (1) Labels @ 25 lbs/each and (1) Label @ 2.50 lbs
+
+also for harness only it's printing (1) Labels @ 25 lbs/each and (1) Label @ 7.50 lbs
+
+but it should be (1) Label @ 15 lbs/each and (1) Label @ 7.50 lbs
+
+Another thing i want to point of for device only we could fit about 100 devices per 50-pack in new car side
+
+on BHPH side:
+EVO - device only
+Harness only
+
+Doesn't add up either. The math is wrong. Please fix and give me the code to fix!
