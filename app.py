@@ -118,8 +118,6 @@ def calculate_labels_and_weight(device, qty, shipping_type):
     
     return ' and '.join(labels)
 
-
-
 def main():
     st.title("RMA Weight Calculator")
     
