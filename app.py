@@ -109,6 +109,18 @@ def calculate_labels_and_weight(device, qty, shipping_type):
                 labels.append(f"({boxes_10}) Labels @ 5 lbs/each")
             if remaining_10:
                 labels.append(f"({remaining_10}) Label @ {(remaining_10 * weight_per_device):.2f} lbs")
+    
+    # Calculate the total weight
+    total_weight = sum(int(label.split('@')[1].strip().split()[0]) for label in labels)
+    
+    # Format labels for multiple items
+    labels = [label.replace('Label', f'Label @ {weight_per_device:.2f} lbs') for label in labels]
+    
+    # If there are multiple labels, adjust the total weight
+    if len(labels) > 1:
+        total_weight = f'{total_weight} lbs'
+    
+    labels.append(f"Total Weight: {total_weight}")
         
     return ' and '.join(labels)
 
