@@ -4,7 +4,53 @@ from urllib.request import urlopen
 
 # CSS for styling the page
 custom_css = """
-            # Your custom CSS goes here
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                overflow: hidden;
+                background-image: url('https://i.postimg.cc/jqvTs0yP/CDS.png');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+            }
+            .stApp {
+                width: 750px;
+                height: 850px;
+                background-color: rgba(255, 255, 255, 0.85);
+                border: 8px solid #2470a0; 
+                border-radius: 20px;
+                padding: 10px; 
+                margin: 10px 0;
+                transform: translate(-50%, -50%);
+                left: 50%;
+                top: 50%;
+            }
+            h1 {
+                color: black;
+            }
+            .big-label {
+                color: black;
+                font-family: 'Roboto', sans-serif;
+                font-size: 2.5em;
+                font-weight: bold;
+            }
+            .output {
+                border-style: solid;
+                border-width: 3.5px;
+                border-radius: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: black;
+                font-size: 2em;
+                font-weight: bold;
+            }
+            </style>
             """
 st.markdown(custom_css, unsafe_allow_html=True)
 
