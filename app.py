@@ -84,11 +84,14 @@ def calculate_labels_and_weight(device, qty, shipping_type):
     
     weight_per_device = weights.get(device, 0)  # Get the weight for the specified device
     labels = []
+    
+    # Define the maximum quantity that can fit into one box
+    max_qty_per_box = 50 if device not in ['Arrow - device only', 'EVO - device only'] else 100
 
     if shipping_type == "New Car":
-        total_boxes = qty // 50
-        remaining = qty % 50
-        single_box_weight = 50 * weight_per_device  # Weight for a single box
+        total_boxes = qty // max_qty_per_box
+        remaining = qty % max_qty_per_box
+        single_box_weight = max_qty_per_box * weight_per_device  # Weight for a single box
 
         if total_boxes:
             labels.append(f"({total_boxes}) Labels @ {single_box_weight:.2f} lbs EACH")
@@ -112,6 +115,7 @@ def calculate_labels_and_weight(device, qty, shipping_type):
             labels.append(f"(1) Label @ {(remaining_10 * weight_per_device):.2f} lbs")
 
     return ' and '.join(labels)
+
 
 def main():
     st.title("RMA Weight Calculator")
